@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dice Game</title>
+</head>
+<style>
+	body
+	{
+		
+		font-size: medium;
+		font: sans-serif;
+		background: url("./Images/dice-game.jpg");
+		background-size: 100vw 100vh;
+		background-position: center;
+	}
+	#heading{
+		font: italic;
+		text-align: center;
+		border: 5px solid yellow;
+		border-radius: 7px;
+		background-color: lightgreen;
+	}
+
+	#count-list
+	{
+		position: absolute;
+		left: 10%;
+		top: 15%;
+		border: 5px solid yellow;
+	    border-radius: 7px;
+	    font-size: larger;
+	    background-color: ghostwhite;
+	}
+	#type-list
+	{
+		position: absolute;
+		left: 10%;
+		top: 25%;
+		border: 5px solid yellow;
+	    border-radius: 7px;
+	    font-size: larger;
+	    background-color: ghostwhite;
+	}
+	select{
+		border: 5px solid ;
+		border-radius: 7px;
+		background-color: lightblue;
+	}
+	#class{
+		background-color: whitesmoke;
+	}
+	#p12
+	{
+		position: absolute;
+		left: 20%;
+		top: 35%;
+	}
+	#p34
+	{
+		position: absolute;
+		left: 20%;
+		top: 45%;
+	}
+
+	textarea{
+		border: 5px solid lightgoldenrodyellow ;
+		border-radius: 10px;
+		background-color: lightcoral;
+		position: relative;
+		top: 15px;
+		color: darkblue;
+		font-size: larger;
+		font-weight: bold;
+		resize: none;
+	}
+	#score1,#score2,#score3,#score4
+	{
+		text-align: center;
+	}
+	.score1,.score2,.score3,.score4
+	{
+		color: wheat;
+	}
+	.score2,.score4,#score2,#score4{
+		position: relative;
+		left: 80%;
+	}
+	#button-dice{
+		position: absolute;
+		left: 37%;
+		top: 63%;
+		width: 50px;
+		height: 50px;
+		border-radius: 10px;
+		background-color: silver;
+		cursor : pointer;
+		
+	}
+	#output 
+	{
+		position: absolute;
+		left: 63%;
+		top: 15%;
+		resize: none;
+		text-overflow: auto;
+		font-size: larger;
+		font-weight: bolder;
+		width: 30%;
+		height: 80%;
+
+	}
+	</style>
+<body>
+	<h1 id="heading">Welcome To The Dice Game Mate!</h1>
+	<div>
+	 <div>
+	 <p id="count-list"><label>select number of players in the game:-</label>
+	 <select id="select1" onchange="update1()">
+		<option selected="selected">select no of players</option>
+		<option value="2">2</option>		
+		<option value="3">3</option>		
+		<option value="4">4</option>		
+	 </select>
+	</p>
+    </div>
+    <div>
+    <p  id="type-list"><label>select the winning type of the game:-</label>
+	<select id="select2" onchange="update2()">
+		<option selected="selected">select the type of winning</option>
+		<option value="2">best of 2</option>
+		<option value="3">best of 3</option>
+		<option value="5">best of 5</option>
+		<option value="7">best of 7</option>
+	</select>
+    </p>
+    </div>
+    </div>
+    <div>
+    	<div>
+    		<p id="p12">
+                <label class="score1">player1</label>
+                <textarea name="score1" id="score1" cols="5" rows="2" readonly></textarea>
+
+    			<label class="score2">player2</label>
+    			<textarea name="score2" id="score2" cols="5" rows="2" readonly></textarea>
+    		</p>
+
+    		<p id="p34">
+    			<label class="score3">player3</label>
+    			<textarea name="score3" id="score3" cols="5" rows="2" readonly></textarea>
+
+    			<label class="score4">player4</label>
+    			<textarea name="score4" id="score4" cols="5" rows="2" readonly></textarea>
+    		 </p>
+
+    	</div>
+
+    	<div>
+    		<input onclick="fun()" type="button" id="button-dice" value="DICE"/>
+    	</div>
+    	<div>
+    		<textarea name="output" id="output" cols="3" rows="30" readonly>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=====&gt;SCORE-BOARD&lt;======</textarea>
+    	</div>
+    </div>
+</body>
+
+<script>
+	var select1,option1,select2,option2;
+	var score=new Array(0,0,0,0);
+	var s3=1,s4=1;
+	function update1() {
+		select1 =document.getElementById('select1');
+		option1 =select1.options[select1.selectedIndex].value;
+		if (option1==2) {
+			document.getElementById('score3').style.visibility="hidden";
+			document.getElementsByClassName('score3')[0].style.visibility="hidden";
+			document.getElementsByClassName('score4')[0].style.visibility="hidden";
+			document.getElementById('score4').style.visibility="hidden";
+			s3=0;
+			s4=0;
+		}
+		if (option1==3) {
+		 
+		 if(s3===0)
+			{
+	        document.getElementById('score3').style.visibility="visible";
+			document.getElementsByClassName('score3')[0].style.visibility="visible";
+		    }
+		  	document.getElementById('score4').style.visibility="hidden";
+			document.getElementsByClassName('score4')[0].style.visibility="hidden";
+		  	document.getElementById('score3').style.position="relative";
+			document.getElementById('score3').style.left="65%";
+			document.getElementsByClassName('score3')[0].style.position="relative";
+			document.getElementsByClassName('score3')[0].style.left="65%";
+			s3=1;
+			s4=0;
+		}
+		if (option1==4) {
+			document.getElementById('score3').style.visibility="visible";
+			document.getElementsByClassName('score3')[0].style.visibility="visible";
+			document.getElementById('score4').style.visibility="visible";
+			document.getElementsByClassName('score4')[0].style.visibility="visible";
+			if (s4==0) {
+			document.getElementsByClassName('score3')[0].style.position="relative";
+			document.getElementsByClassName('score3')[0].style.left="0%";
+			document.getElementsByClassName('score3')[0].style.top="0%";
+			document.getElementById('score3').style.position="relative";
+			document.getElementById('score3').style.left="0%";
+
+
+			document.getElementById('score4').style.position="relative";
+			document.getElementById('score4').style.left="80%";
+			document.getElementsByClassName('score4')[0].style.position="relative";
+			document.getElementsByClassName('score4')[0].style.left="80%";
+			s3=1;
+			}
+			s3=1;
+			s4=1;
+		}
+	}
+
+	function update2() {
+		select2 =document.getElementById('select2');
+		option2 =select2.options[select2.selectedIndex].value;
+
+		alert("no of players="+option1+"\nno of turns="+option2);
+		alert("Let's  start the Game");
+		alert("PRESS THE DICE TO START THE GAME");
+	}
+	function fun() {
+
+	document.getElementById('output').value="\t   ========SCORE-BOARD=======\n\n";
+	for(var i=0;i<=4;i++)
+		{
+			score[i]=0;
+		}
+		for (var i = 0; i<option2; i++)
+			{
+	          document.getElementById('output').value+="\nround-"+(i+1)+" is starting\n\n";
+			    for (var j = 0; j <option1; j++)
+			   {
+			   	document.getElementById('output').value+="player"+(j+1)+"'s turn";
+			   	var a=Math.floor((Math.random()*6)+1);
+	            score[j]+=a;
+	            document.getElementById('output').value+="---->"+a+"\n";
+			   }
+	       }
+		document.getElementById('score1').value=score[0];
+		document.getElementById('score2').value=score[1];
+		document.getElementById('score3').value=score[2];
+		document.getElementById('score4').value=score[3];
+		
+	var count=0,max=0;
+
+	for (var i = 0; i <4; i++) {
+		if (score[i]>score[max]) {
+			max=i;
+		}
+	}
+	for (var i = 0; i <4; i++) {
+		if(score[i]==score[max]){
+			count++;
+		}
+	}
+	if (count==1) {
+		document.getElementById('output').value+="\nplayer"+(max+1)+" is the winner"+String.fromCodePoint(128526)+"\n";
+	}
+	else
+	  {
+		document.getElementById('output').value+="\n{ ";
+		for(var i=0;i<4;i++){
+			if(score[i]==score[max])
+			{
+		document.getElementById('output').value+="player"+(i+1)+" ";
+	        }
+	    }
+	    document.getElementById('output').value+=" } are the winners"+String.fromCodePoint(128526)+String.fromCodePoint(128516)+"\n"+"\n";
+	  }
+	 document.getElementById('output').value+="\n--->\"PRESS THE DICE BUTTON TO PLAY AGAIN\"--->\n\nNOTE:-\n\tChange the players-count or winning-type, if you want ";
+
+	}
+</script>
+</html>
